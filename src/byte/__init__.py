@@ -10,6 +10,7 @@ def game_loop():
 
     clock = pygame.time.Clock()
     running = True
+    radius = 5
 
     while running:
         for event in pygame.event.get():
@@ -18,9 +19,11 @@ def game_loop():
             
             keys = pygame.key.get_pressed()
             if keys[pygame.K_LEFT]:
-                print(f"key pressed: left")
+                print(f"key pressed: left, radius = {radius}")
+                radius = max(0, radius-1)
             if keys[pygame.K_RIGHT]:
-                print(f"key pressed: right")
+                print(f"key pressed: right, radius = {radius}")
+                radius = min(100, radius+1)
             if keys[pygame.K_UP]:
                 print(f"key pressed: up")
             if keys[pygame.K_DOWN]:
@@ -29,7 +32,7 @@ def game_loop():
             print(f"mouse {mouse1}")
             x, y = pygame.mouse.get_pos()
             print(f"position {x, y}")
-            pygame.draw.circle(screen, (x%255, y%255, 0), (x, y), 100)
+            pygame.draw.circle(screen, (x%255, y%255, 0), (x, y), radius)
 
         pygame.display.flip()
         clock.tick(60)
