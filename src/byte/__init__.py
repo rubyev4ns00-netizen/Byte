@@ -25,7 +25,13 @@ def game_loop():
                 print(f"key pressed: up")
             if keys[pygame.K_DOWN]:
                 print(f"key pressed: down")
-          
+            mouse1, mouse2, mouse3 = pygame.mouse.get_pressed(3)
+            print(f"mouse {mouse1}")
+            x, y = pygame.mouse.get_pos()
+            print(f"position {x, y}")
+            pygame.draw.circle(screen, (x%255, y%255, 0), (x, y), 100)
+
+        pygame.display.flip()
         clock.tick(60)
 
 
