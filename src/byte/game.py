@@ -8,6 +8,7 @@ class Game:
         repeat=(300,30),
         radius=5):
 
+        # These are the member variables 
         self.screen_size=screen_size
         self.repeat=repeat
         self.radius=radius
