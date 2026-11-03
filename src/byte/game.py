@@ -31,7 +31,6 @@ class Game:
         background_color = (0, 255, 0) # green
         sprite = pygame.image.load("ladybug.png").convert_alpha()
 
-
         while running:
             screen.fill(background_color)
             screen.blit(sprite, (a, b))
@@ -62,23 +61,13 @@ class Game:
                 x, y = pygame.mouse.get_pos()
                 print(f"position {x, y}")
                 #pygame.draw.circle(screen, (y%100, x%50, 100), (x, y), self.radius)
-                
-
+            
             pygame.display.flip()
             clock.tick(60)
+
     def get_image(sheet, width, height):
         image = pygame.Surface((width, height)).convert_alpha()
 
         return image
         frame_0 = get_image(sprite, 16, 16)
-
-
-
-def main():
-    byte_game = Game()
-    byte_game.game_loop()
-    byte_game.get_image(sprite, 16, 16)
-
-
-if __name__ == '__main__':
-    main()
+        
