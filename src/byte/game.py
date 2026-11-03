@@ -65,9 +65,8 @@ class Game:
             pygame.display.flip()
             clock.tick(60)
 
-    def get_image(sheet, width, height):
+    def get_image(self, sheet, width, height):
         image = pygame.Surface((width, height)).convert_alpha()
 
         return image
-        frame_0 = get_image(sprite, 16, 16)
-        
+       
