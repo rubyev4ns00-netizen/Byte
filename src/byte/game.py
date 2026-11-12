@@ -23,6 +23,7 @@ class Game:
         self.sprite = None
         #self.state = State()
         #self.levels = Level[]
+        #self.input = InputHandler()
         #self.renderer = Renderer()
         print("Game initialized with screen_size:", self.screen_size, "repeat:", self.repeat, "radius:", self.radius)
         self.initialise()
@@ -30,22 +31,22 @@ class Game:
     def initialise(self):
         pygame.init()
         pygame.display.init()
-        self.run()
+        screen = pygame.display.set_mode(self.screen_size)
+        pygame.display.set_caption("Byte")
+        repeat_pause, repeat_delay = self.repeat
+        pygame.key.set_repeat(repeat_pause, repeat_delay)
+        sprite = pygame.image.load(ASSETS_DIR / "ladybug.png").convert_alpha()
+        sprite = pygame.transform.scale(sprite, (32, 32))
+        clock = pygame.time.Clock()
+        self.run(clock, screen)
 
     def tick(self, clock, screen):
         self.handle_input()
         self.render(screen)
         clock.tick(self.framerate)
 
-    def run(self):
-        screen = pygame.display.set_mode(self.screen_size)
-        pygame.display.set_caption("Byte")
-        repeat_pause, repeat_delay = self.repeat
-        pygame.key.set_repeat(repeat_pause, repeat_delay)
+    def run(self, clock, screen):
         self.running = True
-        sprite = pygame.image.load(ASSETS_DIR / "ladybug.png").convert_alpha()
-        sprite = pygame.transform.scale(sprite, (32, 32))
-        clock = pygame.time.Clock()
         while self.running:
             self.tick(clock, screen)
 
