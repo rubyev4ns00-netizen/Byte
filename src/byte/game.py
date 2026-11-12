@@ -1,7 +1,7 @@
 import pygame
-from pathlib import Path
-
 from pygame import sprite
+from byte.inputhandler import InputHandler
+from pathlib import Path
 
 ASSETS_DIR = Path(__file__).parent  # src/byte/
 
@@ -23,7 +23,7 @@ class Game:
         self.sprite = None
         #self.state = State()
         #self.levels = Level[]
-        #self.input = InputHandler()
+        self.inputhandler = InputHandler()
         #self.renderer = Renderer()
         print("Game initialized with screen_size:", self.screen_size, "repeat:", self.repeat, "radius:", self.radius)
         self.initialise()
@@ -41,7 +41,12 @@ class Game:
         self.run(clock, screen)
 
     def tick(self, clock, screen):
-        self.handle_input()
+        x, y, event = self.inputhandler.handle_input(pygame, self.x, self.y)
+        if event == pygame.QUIT:
+            self.running = False
+        else:
+            self.x = x
+            self.y = y
         self.render(screen)
         clock.tick(self.framerate)
 
@@ -64,32 +69,3 @@ class Game:
         screen.fill((0, 255, 0)) #green
         screen.blit(self.sprite, (self.x, self.y))
         pygame.display.flip()
-        
-    def handle_input(self):  
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                self.running = False
-            # elif event.type == pygame.KEYDOWN and event.key == pygame.K_q:
-                #   self.running = False
-    
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_LEFT]:
-            #print(f"key pressed: left, radius = {self.radius}")
-            self.radius = max(0, self.radius-1)
-            self.x -= 5
-        if keys[pygame.K_RIGHT]:
-            #print(f"key pressed: right, radius = {self.radius}")
-            self.radius = min(100, self.radius+1)
-            self.x += 5
-        if keys[pygame.K_UP]:
-            #print(f"key pressed: up")
-            self.y -= 5
-        if keys[pygame.K_DOWN]:
-            #print(f"key pressed: down")
-            self.y += 5
-
-        mouse1, mouse2, mouse3 = pygame.mouse.get_pressed(3)
-        #print(f"mouse {mouse1}")
-        x, y = pygame.mouse.get_pos()
-        #print(f"position {x, y}")
-        #pygame.draw.circle(screen, (y%100, x%50, 100), (x, y), self.radius)
